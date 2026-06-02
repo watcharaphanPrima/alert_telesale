@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { ref, push, serverTimestamp } from 'firebase/database';
 import { db } from '../lib/firebase';
-import { AlertCircle, CheckCircle } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
+import { useParams } from 'react-router-dom';
+import { useNotification } from '../contexts/NotificationContext';
 
 export function AgentView() {
+  const { teamId } = useParams();
+  const { notify } = useNotification();
   const [agentName, setAgentName] = useState(() => localStorage.getItem('agentName') || '');
   const [isSending, setIsSending] = useState(false);
-  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   useEffect(() => {
     if (agentName) {
@@ -16,27 +19,27 @@ export function AgentView() {
 
   const handleSOS = async () => {
     if (!agentName.trim()) {
-      alert("Please enter your name first!");
+      alert("กรุณาระบุชื่อของคุณก่อน!");
+      return;
+    }
+    if (!teamId) {
+      alert("ไม่พบข้อมูลทีม!");
       return;
     }
 
     setIsSending(true);
-    setStatus('idle');
 
     try {
-      const alertsRef = ref(db, 'alerts');
+      const alertsRef = ref(db, `teams/${teamId}/alerts`);
       await push(alertsRef, {
         agentName,
         status: 'active',
         timestamp: serverTimestamp(),
       });
-      setStatus('success');
-      
-      // Reset status after 3 seconds
-      setTimeout(() => setStatus('idle'), 3000);
+      notify('SOS Sent', 'ส่งคำขอความช่วยเหลือสำเร็จแล้ว!', 'success');
     } catch (error) {
       console.error("Failed to send SOS:", error);
-      setStatus('error');
+      notify('Error', 'ส่งคำขอไม่สำเร็จ กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต', 'danger');
     } finally {
       setIsSending(false);
     }
@@ -44,22 +47,33 @@ export function AgentView() {
 
   return (
     <div className="agent-view animate-fade-in">
-      <div className="glass-panel" style={{ padding: '1.5rem', width: '300px' }}>
-        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-          Your Name / ID
+      <div className="glass-panel" style={{ 
+        padding: 'var(--space-lg, 2rem)', 
+        width: '100%', 
+        maxWidth: '380px',
+        background: 'var(--bg-surface)',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px var(--glass-border)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.75rem'
+      }}>
+        <label style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em' }}>
+          ชื่อ / รหัสพนักงานของคุณ
         </label>
         <input 
+          className="role-input"
           type="text" 
           value={agentName}
           onChange={(e) => setAgentName(e.target.value)}
-          placeholder="e.g. Somchai (Sales 1)"
+          placeholder="เช่น สมชาย (ฝ่ายขาย 1)"
           style={{
             width: '100%',
-            padding: '0.75rem',
-            borderRadius: '8px',
+            padding: '1rem 1.25rem',
+            borderRadius: 'var(--radius-pill)',
             border: '1px solid var(--glass-border)',
-            background: 'rgba(0,0,0,0.2)',
-            color: 'white',
+            background: 'var(--bg-base)',
+            color: 'var(--text-main)',
+            fontSize: '1.1rem',
             outline: 'none'
           }}
         />
@@ -71,20 +85,9 @@ export function AgentView() {
         disabled={isSending || !agentName.trim()}
       >
         <AlertCircle size={48} />
-        <span>{isSending ? 'Sending...' : 'SOS'}</span>
+        <span>{isSending ? 'กำลังส่ง...' : 'ขอความช่วยเหลือ (SOS)'}</span>
       </button>
 
-      <div className="status-message">
-        {status === 'success' && (
-          <span className="status-success flex items-center gap-2">
-            <CheckCircle size={20} style={{display: 'inline', verticalAlign: 'middle'}}/> 
-            Help requested successfully!
-          </span>
-        )}
-        {status === 'error' && (
-          <span className="status-error">Failed to send request. Check connection.</span>
-        )}
-      </div>
     </div>
   );
 }
