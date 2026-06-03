@@ -3,6 +3,7 @@ import { ref, onValue, update, query, orderByChild, equalTo } from 'firebase/dat
 import { db } from '../lib/firebase';
 import { ShieldAlert, Users, Clock, CheckCircle } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import './ManagerView.css';
 import { useNotification } from '../contexts/NotificationContext';
 
 interface Alert {

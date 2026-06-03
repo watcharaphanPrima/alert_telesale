@@ -1,23 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ref, push, serverTimestamp } from 'firebase/database';
 import { db } from '../lib/firebase';
 import { AlertCircle } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { useNotification } from '../contexts/NotificationContext';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import './AgentView.css';
 
 export function AgentView() {
   const { teamId } = useParams();
   const { notify } = useNotification();
-  const [agentName, setAgentName] = useState(() => localStorage.getItem('agentName') || '');
+  const [agentName, setAgentName] = useLocalStorage<string>('agentName', '');
   const [isSending, setIsSending] = useState(false);
 
-  useEffect(() => {
-    if (agentName) {
-      localStorage.setItem('agentName', agentName);
-    }
-  }, [agentName]);
-
-  const handleSOS = async () => {
+  const handleSOS = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (!agentName.trim()) {
       notify("ข้อผิดพลาด", "กรุณาระบุชื่อของคุณก่อน!", "danger");
       return;
@@ -46,7 +43,7 @@ export function AgentView() {
   };
 
   return (
-    <div className="agent-view animate-fade-in">
+    <form className="agent-view animate-fade-in" onSubmit={handleSOS}>
       <div className="glass-panel" style={{ 
         padding: 'var(--space-lg, 2rem)', 
         width: '100%', 
@@ -57,10 +54,11 @@ export function AgentView() {
         flexDirection: 'column',
         gap: '0.75rem'
       }}>
-        <label style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em' }}>
+        <label htmlFor="agentNameInput" style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em' }}>
           ชื่อ / รหัสพนักงานของคุณ
         </label>
         <input 
+          id="agentNameInput"
           className="role-input"
           type="text" 
           value={agentName}
@@ -88,6 +86,6 @@ export function AgentView() {
         <span>{isSending ? 'กำลังส่ง...' : 'ขอความช่วยเหลือ (SOS)'}</span>
       </button>
 
-    </div>
+    </form>
   );
 }
