@@ -19,11 +19,11 @@ export function AgentView() {
 
   const handleSOS = async () => {
     if (!agentName.trim()) {
-      alert("กรุณาระบุชื่อของคุณก่อน!");
+      notify("ข้อผิดพลาด", "กรุณาระบุชื่อของคุณก่อน!", "danger");
       return;
     }
     if (!teamId) {
-      alert("ไม่พบข้อมูลทีม!");
+      notify("ข้อผิดพลาด", "ไม่พบข้อมูลทีม!", "danger");
       return;
     }
 

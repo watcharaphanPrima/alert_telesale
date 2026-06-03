@@ -1,26 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useParams } from 'react-router-dom';
 import { AgentView } from './views/AgentView';
 import { ManagerView } from './views/ManagerView';
 import { LogOut, Users, ShieldAlert } from 'lucide-react';
+import { useNotification } from './contexts/NotificationContext';
 import './App.css'; 
 
 function RoleSelection() {
   const navigate = useNavigate();
+  const { notify } = useNotification();
   const [teamName, setTeamName] = useState(() => localStorage.getItem('lastTeam') || '');
 
   const formatTeamId = (name: string) => {
-    return name.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    return name.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9ก-๙-]/g, '');
   };
 
   const handleSelectRole = (role: 'agent' | 'manager') => {
     if (!teamName.trim()) {
-      alert('กรุณาระบุชื่อทีมก่อนเข้าสู่ระบบ');
+      notify('ข้อผิดพลาด', 'กรุณาระบุชื่อทีมก่อนเข้าสู่ระบบ', 'danger');
       return;
     }
     const teamId = formatTeamId(teamName);
     if (!teamId) {
-      alert('ชื่อทีมไม่ถูกต้อง');
+      notify('ข้อผิดพลาด', 'ชื่อทีมไม่ถูกต้อง', 'danger');
       return;
     }
     localStorage.setItem('lastTeam', teamName);

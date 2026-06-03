@@ -17,6 +17,7 @@ This document serves as the single source of truth for the project's visual lang
 3. **Emerald Core:** The primary brand color represents safety, growth, and positivity.
 4. **Pill-shaped Components:** Buttons, badges, and primary inputs should lean towards fully rounded (pill-shaped) borders (`border-radius: 9999px`) to reinforce the friendly vibe.
 5. **Adaptive Colors:** The system must fluidly support both Dark and Light modes using CSS variables, ensuring high contrast and accessibility in both environments.
+6. **No Native Dialogs:** The entire project MUST use custom Modals or immersive UI patterns (like the toast container) for notifications and confirmations. STRICTLY DO NOT use `window.alert`, `window.confirm`, or `window.prompt` anywhere in the codebase.
 
 ## Tokens (Draft)
 
