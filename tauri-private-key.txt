@@ -1,0 +1,11 @@
+Private: (Keep it secret!)
+dW50cnVzdGVkIGNvbW1lbnQ6IHJzaWduIGVuY3J5cHRlZCBzZWNyZXQga2V5ClJXUlRZMEl5cm9zRUphcmd5bk5jMkdqaGlreWVpdHhWdUlaZWw3Z3RXUmJHNzRudlhYSUFBQkFBQUFBQUFBQUFBQUlBQUFBQVNFVHJQWHl0UVNsdDdvaVpHZUV0SXNoT1ZwMlc4MXdLcHlXSzdwNEpYZlJseFdDSFdUZUZZRytYdEdmMy9WejZncHZnY08yYWZnZ29nZzR5SkhDeEliQWtOYitSclNmakhDMmI5T2p4WWlkWlpaKzFQM2I4VFVlWVMxL0Q1TDRPRDdIN2tTSi9SVnM9Cg==
+
+Public:
+dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEQ0RTE2QjdDQjdFQzM0RTQKUldUa05PeTNmR3ZoMU81aGJwaG56OU13VFpxeGRoMDlpTTQzanAzbmZyNGpZOWhaTzlKUjg2aTcK
+
+-----------------------
+ATTENTION: 
+1. Keep this file safe and never commit it to GitHub.
+2. When building on CI/CD (GitHub Actions) or locally for a release, set the environment variable:
+   TAURI_SIGNING_PRIVATE_KEY="dW50cn..."
