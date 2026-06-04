@@ -4,7 +4,7 @@
   "pub_date": "2026-06-04T10:00:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUa05PeTNmR3ZoMU5ORXpRck5oZUFNa0xQM3NFdmN0SG9Ca1ZkS2owVlBDeGtOTkxvd2QzNnA1Qm9Vc2VpQXdqa2dZVGhUQVRienlaRElXU29LWVdva1gzZHYxeTQ4eVFZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwNTQ5NDQ3CWZpbGU6dGF1cmktYXBwXzAuMS4xX3g2NC1zZXR1cC5leGUKMjhLUlRFNmlRb0lGV256SXphV0xCb1l3MjFjSXVYMGh3bkUyQUtpeGlhT1d0SHhnUzM1NElXTEl3cXdnMUw5T1pPaVVBS0VrUWRyaENjUWlHelFmRHc9PQo=",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUa05PeTNmR3ZoMUo0Mi9zb0cyLytmR1U2czh0OUdsTmhmV3J4UTRkTmlBZ1VmMlJvcTdUWk5mblZJd2dLMXh0L2xVN0tKSE5TM0NEdXkrNzl4YmNIbHBvei9PR1BRUHdvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwNTUxNDA5CWZpbGU6dGF1cmktYXBwXzAuMS4yX3g2NC1zZXR1cC5leGUKTk83ZFFZejlrb2tYNTVvYXA1eVJ6YXdZVFBqRGx1aUZOczQxbHNzL1M1Q1hDR0pOZno1TzRxZmk3OHNtckhhV2pSYU02bFh4UmcrYTBCUkF4dnY3Qmc9PQo=",
       "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/download/v0.1.1/tauri-app_0.1.1_x64-setup.exe.zip"
     }
   }
