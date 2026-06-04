@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Users, ShieldAlert } from 'lucide-react';
 import { useNotification } from '../contexts/NotificationContext';
@@ -9,6 +9,14 @@ export function RoleSelection() {
   const navigate = useNavigate();
   const { notify } = useNotification();
   const [teamName, setTeamName] = useLocalStorage<string>('lastTeam', '');
+  const [session, setSession] = useLocalStorage<{teamId: string, role: string} | null>('autoLoginSession', null);
+
+  useEffect(() => {
+    // If a session exists, auto-login by redirecting immediately
+    if (session && session.teamId && session.role) {
+      navigate(`/${session.teamId}/${session.role}`, { replace: true });
+    }
+  }, [session, navigate]);
 
   const formatTeamId = (name: string) => {
     return name.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9ก-๙-]/g, '');
@@ -27,6 +35,7 @@ export function RoleSelection() {
       return;
     }
     setTeamName(teamName);
+    setSession({ teamId, role });
     navigate(`/${teamId}/${role}`);
   };
 

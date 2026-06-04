@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ref, onValue, update, query, orderByChild, equalTo } from 'firebase/database';
 import { db } from '../lib/firebase';
-import { ShieldAlert, Users, Clock, CheckCircle } from 'lucide-react';
+import { ShieldAlert, Users, Clock, CheckCircle, Volume2 } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import './ManagerView.css';
 import { useNotification } from '../contexts/NotificationContext';
@@ -13,15 +13,43 @@ interface Alert {
   timestamp: number;
 }
 
+const playAlertSound = () => {
+  try {
+    const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+    // Siren pattern
+    const playBeep = (freq: number, startTime: number) => {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(freq, startTime);
+      gain.gain.setValueAtTime(0.1, startTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.3);
+      osc.start(startTime);
+      osc.stop(startTime + 0.3);
+    };
+    
+    const now = audioCtx.currentTime;
+    playBeep(880, now);        // High beep
+    playBeep(659.25, now + 0.3); // Low beep
+    playBeep(880, now + 0.6);    // High beep
+    playBeep(659.25, now + 0.9); // Low beep
+  } catch (e) {
+    console.warn("Audio play failed (maybe autoplay blocked):", e);
+  }
+};
+
 export function ManagerView() {
   const { teamId } = useParams();
   const { notify } = useNotification();
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [activeCount, setActiveCount] = useState(0);
+  
+  const isInitialMount = useRef(true);
+  const seenAlertIds = useRef<Set<string>>(new Set());
 
   useEffect(() => {
-    // We want to listen to ALL alerts to show stats, or just active ones.
-    // For simplicity, let's grab all alerts that are 'active'.
     if (!teamId) return;
     const alertsRef = query(ref(db, `teams/${teamId}/alerts`), orderByChild('status'), equalTo('active'));
     
@@ -36,18 +64,26 @@ export function ManagerView() {
         // Sort by newest first
         parsedAlerts.sort((a, b) => b.timestamp - a.timestamp);
         
-        // Check if there are NEW alerts (for notification)
-        if (parsedAlerts.length > activeCount && activeCount > 0) {
-          // Play a sound or show OS notification
+        // Check for completely new alerts
+        const newAlerts = parsedAlerts.filter(a => !seenAlertIds.current.has(a.id));
+        
+        if (!isInitialMount.current && newAlerts.length > 0) {
+          // Play sound
+          playAlertSound();
+          
+          // OS Notification
           if (Notification.permission === 'granted') {
             new Notification('ระบบแจ้งเตือน Telesales', {
-              body: `${parsedAlerts[0].agentName} กำลังขอความช่วยเหลือ!`,
+              body: `${newAlerts[0].agentName} กำลังขอความช่วยเหลือ!`,
             });
           }
           
-          // Trigger In-App Immersive Notification
-          notify('SOS Alert', `${parsedAlerts[0].agentName} ต้องการความช่วยเหลือด่วน!`, 'danger');
+          // App Toast Notification
+          notify('SOS Alert', `${newAlerts[0].agentName} ต้องการความช่วยเหลือด่วน!`, 'danger');
         }
+        
+        // Mark all as seen
+        parsedAlerts.forEach(a => seenAlertIds.current.add(a.id));
         
         setAlerts(parsedAlerts);
         setActiveCount(parsedAlerts.length);
@@ -55,6 +91,8 @@ export function ManagerView() {
         setAlerts([]);
         setActiveCount(0);
       }
+      
+      isInitialMount.current = false;
     });
 
     // Request notification permission on mount
@@ -62,9 +100,8 @@ export function ManagerView() {
       Notification.requestPermission();
     }
 
-    // Cleanup listener on unmount
     return () => unsubscribe();
-  }, [activeCount]);
+  }, [teamId, notify]);
 
   const handleResolve = async (id: string) => {
     if (!teamId) return;
@@ -83,9 +120,31 @@ export function ManagerView() {
           <div className="stat-icon" style={{ background: 'rgba(239, 68, 68, 0.1)', color: 'var(--danger)' }}>
             <ShieldAlert size={24} />
           </div>
-          <div className="stat-info">
-            <h3>รอความช่วยเหลือ (Active)</h3>
-            <p style={{ color: activeCount > 0 ? 'var(--danger)' : 'var(--text-main)' }}>{activeCount}</p>
+          <div className="stat-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
+            <div>
+              <h3>รอความช่วยเหลือ (Active)</h3>
+              <p style={{ color: activeCount > 0 ? 'var(--danger)' : 'var(--text-main)' }}>{activeCount}</p>
+            </div>
+            <button 
+              onClick={playAlertSound}
+              title="ทดสอบเสียงเตือน"
+              style={{
+                background: 'var(--bg-base)',
+                border: '1px solid var(--glass-border)',
+                borderRadius: '8px',
+                padding: '8px',
+                cursor: 'pointer',
+                color: 'var(--text-muted)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.color = 'var(--text-main)'}
+              onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+            >
+              <Volume2 size={18} />
+            </button>
           </div>
         </div>
         
