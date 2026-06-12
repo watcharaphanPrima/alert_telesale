@@ -17,7 +17,7 @@ export function CustomTitlebar({
 }: CustomTitlebarProps) {
 
   const appWindow = getCurrentWindow();
-  const { addNotification } = useNotification();
+  const { notify } = useNotification();
 
   const handleMinimizeOrWidget = async () => {
     try {
@@ -32,7 +32,7 @@ export function CustomTitlebar({
       }
     } catch (error) {
       console.error(error);
-      addNotification('error', 'ข้อผิดพลาด', `ไม่สามารถย่อหน้าต่างได้: ${error}`);
+      notify('ข้อผิดพลาด', `ไม่สามารถย่อหน้าต่างได้: ${error}`, 'danger');
     }
   };
 
@@ -45,7 +45,7 @@ export function CustomTitlebar({
       }
     } catch (error) {
       console.error(error);
-      addNotification('error', 'ข้อผิดพลาด', `ไม่สามารถขยายหน้าต่างได้ (Permission ขาดหาย): ${error}`);
+      notify('ข้อผิดพลาด', `ไม่สามารถขยายหน้าต่างได้ (Permission ขาดหาย): ${error}`, 'danger');
     }
   };
 
@@ -64,7 +64,7 @@ export function CustomTitlebar({
       await appWindow.close();
     } catch (error) {
       console.error(error);
-      addNotification('error', 'ข้อผิดพลาด', `ไม่สามารถปิดโปรแกรมได้: ${error}`);
+      notify('ข้อผิดพลาด', `ไม่สามารถปิดโปรแกรมได้: ${error}`, 'danger');
     }
   };
 
