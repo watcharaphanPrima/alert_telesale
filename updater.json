@@ -1,11 +1,11 @@
 {
-  "version": "0.1.9",
-  "notes": "อัปเกรดระดับ Ultimate Best Practice: เพิ่ม Custom Titlebar และปรับปรุง UI แบบไร้รอยต่อ (ไร้ขอบ OS), พร้อมแก้บั๊กพฤติกรรมในโหมดย่อหน้าต่าง",
-  "pub_date": "2026-06-12T14:00:00Z",
+  "version": "0.1.10",
+  "notes": "Refactor โค้ด Custom Titlebar ตามหลัก Best Practice (DRY), เพิ่ม Titlebar ในหน้า Login ให้สามารถกดปิด/ย่อแอปได้, และเปลี่ยนปุ่ม 'ย่อ' ให้เข้าสู่โหมด Widget (ลอยทับหน้าจอ)",
+  "pub_date": "2026-06-12T15:25:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUa05PeTNmR3ZoMUczaDVpbzhGUEdIRDZKZzk3aG55V3NRZzlKNyt5ME84amhEdHFNWVYydHM2a0RyeXFNd2srdDdqMk4xTGU2MGNwTUJCb3BoeUE4ZkJnWVIxN1k4NVFnPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMjQ5ODU5CWZpbGU6QWxlcnQgVGVsZXNhbGVfMC4xLjlfeDY0LXNldHVwLmV4ZQpKaisvN3J0MXNWUG1MQVRiSWE4VlN0cHNJNW5PWXZXdWlsaXEwRklFVFIrdHRLTGdqeEMyY2tIUytuWGR2MkdKVFovRThZdjlaS0tjRkhxS2paNDVBdz09Cg==",
-      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.9_x64-setup.exe"
+      "signature": "รอใส่_Signature_ของ_0.1.10_ตรงนี้",
+      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.10_x64-setup.exe"
     }
   }
 }

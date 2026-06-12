@@ -1,4 +1,3 @@
-import React from 'react';
 import { GripHorizontal, Minus, Square, Maximize2, X } from 'lucide-react';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 
