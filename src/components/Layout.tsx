@@ -13,6 +13,9 @@ export function Layout({ children, title }: { children: React.ReactNode, title: 
 
   useEffect(() => {
     getVersion().then(setAppVersion).catch(console.error);
+    if (document.body.classList.contains('mini-mode')) {
+      setIsMiniMode(true);
+    }
   }, []);
   
   // Format team ID back to readable for display (e.g. team-alpha -> Team Alpha)

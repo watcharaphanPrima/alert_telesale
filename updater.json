@@ -1,11 +1,11 @@
 {
-  "version": "0.1.14",
-  "notes": "แก้ไขบั๊กขั้นเด็ดขาด: แก้ปัญหาหน้าจอย่อส่วนทำงานผิดพลาดเมื่อกดปุ่ม Minimize แล้วค้างอยู่ตรงกลาง, พร้อมให้สิทธิ์ทุกฟังก์ชันของ Window เพื่อความลื่นไหลที่สุด 100%",
-  "pub_date": "2026-06-12T16:35:00Z",
+  "version": "0.1.15",
+  "notes": "อัปเดตครั้งสุดท้าย!: แก้บั๊กที่ทำให้หน้าจอมนและกรอบหน้าต่างลอยค้างอยู่เมื่อรีเฟรชหน้า และจับคู่สิทธิ์การย่อขยายหน้าต่างให้ตรงกับชื่อโปรไฟล์ (Label) แบบเป๊ะๆ 100%",
+  "pub_date": "2026-06-12T16:55:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUa05PeTNmR3ZoMUNJSnl5YVFiTzh0Y2I1KzMzZk5EU1R2Rm01Tyt5ZjdObEcvL2pOSm0xUTNuc3lCd2svZTVCeUViOFhHc0NJNHpQclpHdGsyZUJIN0xlUzBVRjRoSUEwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMjU3NzEzCWZpbGU6QWxlcnQgVGVsZXNhbGVfMC4xLjE0X3g2NC1zZXR1cC5leGUKcGFkQ1dwR0htUjlMK0J6bEJISElCb1pwLy9neFJESmY4L2NKQTlyVjF2MEFMMllmSVRNUG1lTW5oTFVNVnhIWHRocnpHbmFiSXNIY29ZNWV4SzJZQ3c9PQo=",
-      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.14_x64-setup.exe"
+      "signature": "รอใส่_Signature_ของ_0.1.15_ตรงนี้",
+      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.15_x64-setup.exe"
     }
   }
 }
