@@ -57,6 +57,9 @@ export function Layout({ children, title }: { children: React.ReactNode, title: 
           onPointerDown={(e) => {
             if (e.button === 0) getCurrentWindow().startDragging();
           }}
+          onDoubleClick={() => {
+            if (!isMiniMode) getCurrentWindow().toggleMaximize();
+          }}
         >
           {isMiniMode && <GripHorizontal size={14} style={{ marginRight: 8, opacity: 0.5 }} />}
           Alert Telesale {appVersion && <span style={{ opacity: 0.5, marginLeft: 6, fontWeight: 'normal' }}>v{appVersion}</span>}

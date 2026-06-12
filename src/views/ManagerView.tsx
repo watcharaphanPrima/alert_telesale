@@ -144,7 +144,7 @@ export function ManagerView() {
   return (
     <div className="manager-view animate-fade-in">
       <div className="stats-container">
-        <div className="stat-card">
+        <div className="stat-card" style={{ gridColumn: '1 / -1' }}>
           <div className="stat-icon" style={{ background: 'rgba(239, 68, 68, 0.1)', color: 'var(--danger)' }}>
             <ShieldAlert size={24} />
           </div>

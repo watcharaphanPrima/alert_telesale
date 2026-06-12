@@ -53,6 +53,8 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden; /* Desktop app feel */
+  user-select: none; /* Prevent accidental text highlighting */
+  -webkit-user-select: none;
 }
 
 #root {
@@ -106,7 +108,7 @@ body.mini-mode .hide-in-mini {
 }
 
 body.mini-mode .app-container {
-  padding: 0;
+  padding: 32px 0 0 0;
   border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid var(--glass-border);
@@ -286,4 +288,25 @@ body.mini-mode .alert-item .btn-resolve {
 /* Ensure app content doesn't get hidden under fixed titlebar */
 .app-container {
   padding-top: 32px;
+}
+
+/* =========================================
+   CUSTOM SCROLLBARS
+   ========================================= */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.3);
+  border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.5);
 }
