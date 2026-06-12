@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { LogOut, Minimize2, Maximize2, GripHorizontal, Minus, Square, X } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { getCurrentWindow, LogicalSize } from '@tauri-apps/api/window';
 import { getVersion } from '@tauri-apps/api/app';
+import { CustomTitlebar } from './CustomTitlebar';
 
 export function Layout({ children, title }: { children: React.ReactNode, title: string }) {
   const navigate = useNavigate();
@@ -51,53 +52,12 @@ export function Layout({ children, title }: { children: React.ReactNode, title: 
       <div className="ambient-glow glow-primary"></div>
       <div className="ambient-glow glow-danger"></div>
       <div className="ambient-glow glow-accent"></div>
-      <div className="custom-titlebar">
-        <div 
-          className="titlebar-drag-region" 
-          onPointerDown={(e) => {
-            if (e.button === 0) getCurrentWindow().startDragging();
-          }}
-          onDoubleClick={() => {
-            if (!isMiniMode) getCurrentWindow().toggleMaximize();
-          }}
-        >
-          {isMiniMode && <GripHorizontal size={14} style={{ marginRight: 8, opacity: 0.5 }} />}
-          Alert Telesale {appVersion && <span style={{ opacity: 0.5, marginLeft: 6, fontWeight: 'normal' }}>v{appVersion}</span>}
-        </div>
-        <div className="titlebar-controls">
-          <button 
-            className="titlebar-button" 
-            onClick={() => {
-              if (isMiniMode) {
-                import('@tauri-apps/api/window').then(({ getCurrentWindow }) => getCurrentWindow().minimize());
-              } else {
-                toggleMiniMode();
-              }
-            }} 
-            title={isMiniMode ? "ซ่อนลง Taskbar" : "ย่อเป็น Widget ลอยบนจอ"}
-          >
-            <Minus size={16} />
-          </button>
-          
-          <button 
-            className="titlebar-button" 
-            onClick={() => {
-              if (isMiniMode) {
-                toggleMiniMode(); // ขยายกลับจาก Widget
-              } else {
-                import('@tauri-apps/api/window').then(({ getCurrentWindow }) => getCurrentWindow().toggleMaximize());
-              }
-            }} 
-            title={isMiniMode ? "ขยายกลับเป็นหน้าต่างปกติ" : "ขยายเต็มจอ"}
-          >
-            {isMiniMode ? <Maximize2 size={14} /> : <Square size={12} />}
-          </button>
-
-          <button className="titlebar-button close" onClick={() => import('@tauri-apps/api/window').then(({ getCurrentWindow }) => getCurrentWindow().close())} title="ปิดโปรแกรม">
-            <X size={16} />
-          </button>
-        </div>
-      </div>
+      <CustomTitlebar 
+        appVersion={appVersion}
+        isMiniMode={isMiniMode}
+        onToggleMiniMode={toggleMiniMode}
+        showWidgetToggle={true}
+      />
 
       <div className="app-container" style={{ position: 'relative', zIndex: 10 }}>
         {!isMiniMode && (
