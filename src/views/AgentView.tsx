@@ -44,7 +44,7 @@ export function AgentView() {
 
   return (
     <form className="agent-view animate-fade-in" onSubmit={handleSOS}>
-      <div className="glass-panel" style={{ 
+      <div className={`glass-panel ${agentName.trim() ? 'hide-in-mini' : ''}`} style={{ 
         padding: 'var(--space-lg, 2rem)', 
         width: '100%', 
         maxWidth: '380px',

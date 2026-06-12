@@ -95,3 +95,124 @@ body {
 .animate-fade-in {
   animation: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* =========================================
+   IMPECCABLE WIDGET MODE (MINI MODE)
+   ========================================= */
+
+/* Hide unwanted desktop elements */
+body.mini-mode .hide-in-mini {
+  display: none !important;
+}
+
+body.mini-mode .app-container {
+  padding: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+}
+
+body.mini-mode .ambient-glow {
+  opacity: 0.15;
+  filter: blur(50px);
+}
+
+body.mini-mode .app-content {
+  padding: 0.75rem;
+  height: calc(100vh - 40px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+body.mini-mode .glass-panel {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-sm);
+}
+
+/* Agent View Optimization */
+body.mini-mode .agent-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+body.mini-mode .agent-view .glass-panel {
+  display: none; /* Hide input form in widget mode if possible */
+}
+
+body.mini-mode .agent-view .sos-button {
+  flex: 1;
+  width: 100%;
+  border-radius: var(--radius-md);
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+body.mini-mode .agent-view .sos-button svg {
+  width: 64px;
+  height: 64px;
+}
+
+/* Manager View Optimization */
+body.mini-mode .manager-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 0.5rem;
+}
+
+body.mini-mode .stats-container {
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+body.mini-mode .stat-card {
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+body.mini-mode .stat-card h3 {
+  font-size: 0.85rem;
+}
+
+body.mini-mode .stat-icon {
+  width: 32px;
+  height: 32px;
+}
+body.mini-mode .stat-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+body.mini-mode .alerts-container {
+  margin-top: 0;
+  padding: 0.5rem;
+  flex: 1;
+  border-radius: var(--radius-sm);
+  overflow-y: auto;
+}
+
+body.mini-mode .alerts-container h2 {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+body.mini-mode .alert-item {
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+body.mini-mode .alert-item .alert-actions {
+  width: 100%;
+}
+body.mini-mode .alert-item .btn-resolve {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
