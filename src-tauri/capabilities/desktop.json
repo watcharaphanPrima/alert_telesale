@@ -12,6 +12,12 @@
     "updater:default",
     "dialog:default",
     "process:default",
-    "core:window:default"
+    "core:window:default",
+    "core:window:allow-unmaximize",
+    "core:window:allow-is-maximized",
+    "core:window:allow-center",
+    "core:window:allow-set-size",
+    "core:window:allow-set-always-on-top",
+    "core:window:allow-set-decorations"
   ]
 }

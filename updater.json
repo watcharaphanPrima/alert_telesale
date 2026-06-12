@@ -1,11 +1,11 @@
 {
-  "version": "0.1.3",
-  "notes": "เปลี่ยนชื่อแอป โลโก้ใหม่ และอัปเดตระบบเสียงแจ้งเตือนแบบครบวงจร (Advanced Audio System)",
-  "pub_date": "2026-06-12T10:00:00Z",
+  "version": "0.1.4",
+  "notes": "แก้บั๊ก Widget Mode (Mini Mode) ย่อหน้าต่างไม่ลงเวลาเปิดเต็มจอ (Maximized)",
+  "pub_date": "2026-06-12T11:00:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUa05PeTNmR3ZoMUdjWi85RXZsTC9Md3RibmxhcU5wVVpFQ1pvVjloU3BtWEhuK01nc0pmSWs3b1loWGFOSjN0bXlwYS9tcFJXdVpaZUJRRUJyd3c4WW81M3RsOVlxRlFVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMjM1MDkxCWZpbGU6QWxlcnQgVGVsZXNhbGVfMC4xLjNfeDY0LXNldHVwLmV4ZQpCaHB6M2tWSHhZcFZ4cUtrVVRaRThlYnZqTE1KaFZyblowaytZOXFYb2owajNaTHdzeXpzclVnZGptNGtwUnlKL3cyZERweXR6alBYTnd5SVM0cTZCQT09Cg==",
-      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.3_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUa05PeTNmR3ZoMU81Z1hPUDNRUjJhNS9WVzFvZEc0cFBrbHZhWVVoS2NzQjhnMVZaeCtaVzBueXVxNmxqQTB0d1FJdmZucG1zQ2NqUGdpZVArU1gzK1pwSUJxODlMY0FBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMjM5MzQxCWZpbGU6QWxlcnQgVGVsZXNhbGVfMC4xLjRfeDY0LXNldHVwLmV4ZQpORmo0eGx1V3RIV2g2alFlaXYrUVZYVHkwNFl0QitQbW1lS24zUUNSVGRBZ1lRcWM2b3NYZHQvbmVhQkZkYVp3Z0lIZmNHVzNua25WYWs0dGhlTmpEZz09Cg==",
+      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.4_x64-setup.exe"
     }
   }
 }

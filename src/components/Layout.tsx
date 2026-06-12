@@ -16,15 +16,23 @@ export function Layout({ children, title }: { children: React.ReactNode, title: 
       const appWindow = getCurrentWindow();
       if (isMiniMode) {
         // Restore to full size
+        setIsMiniMode(false);
+        document.body.classList.remove('mini-mode');
         await appWindow.setDecorations(true);
         await appWindow.setAlwaysOnTop(false);
         await appWindow.setSize(new LogicalSize(800, 600));
-        setIsMiniMode(false);
-        document.body.classList.remove('mini-mode');
+        await appWindow.center();
       } else {
         // Enter Widget Mode
         setIsMiniMode(true);
         document.body.classList.add('mini-mode');
+        
+        // Must unmaximize first, otherwise setSize has no effect on Windows
+        const maximized = await appWindow.isMaximized();
+        if (maximized) {
+          await appWindow.unmaximize();
+        }
+        
         await appWindow.setDecorations(false);
         await appWindow.setAlwaysOnTop(true);
         await appWindow.setSize(new LogicalSize(320, 480));
