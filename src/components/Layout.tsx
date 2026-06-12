@@ -42,20 +42,6 @@ export function Layout({ children, title }: { children: React.ReactNode, title: 
         await appWindow.setDecorations(false);
         await appWindow.setAlwaysOnTop(true);
         await appWindow.setSize(new LogicalSize(320, 480));
-
-        // Move to bottom right
-        const monitor = await currentMonitor();
-        if (monitor) {
-          const logicalWidth = monitor.size.width / monitor.scaleFactor;
-          const logicalHeight = monitor.size.height / monitor.scaleFactor;
-          const logicalX = monitor.position.x / monitor.scaleFactor;
-          const logicalY = monitor.position.y / monitor.scaleFactor;
-          
-          const targetX = logicalX + logicalWidth - 320 - 20;
-          const targetY = logicalY + logicalHeight - 480 - 60; // 60px padding for taskbar
-          
-          await appWindow.setPosition(new LogicalPosition(targetX, targetY));
-        }
       }
     } catch (e) {
       console.error("Failed to toggle mini mode", e);
@@ -71,7 +57,7 @@ export function Layout({ children, title }: { children: React.ReactNode, title: 
         {isMiniMode ? (
           <header 
             className="app-header glass-panel" 
-            onPointerDown={(e) => { if(e.button === 0) getCurrentWindow().startDragging(); }}
+            data-tauri-drag-region
             style={{ 
               display: 'flex', 
               justifyContent: 'space-between', 
@@ -82,9 +68,9 @@ export function Layout({ children, title }: { children: React.ReactNode, title: 
               background: 'rgba(0,0,0,0.2)'
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)' }}>
-              <GripHorizontal size={18} />
-              <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>Telesale Widget</span>
+            <div data-tauri-drag-region style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)' }}>
+              <GripHorizontal size={18} data-tauri-drag-region />
+              <span data-tauri-drag-region style={{ fontSize: '0.75rem', fontWeight: 600 }}>Telesale Widget</span>
             </div>
             <button 
               className="btn-icon" 
