@@ -1,11 +1,11 @@
 {
-  "version": "0.1.10",
-  "notes": "Refactor โค้ด Custom Titlebar ตามหลัก Best Practice (DRY), เพิ่ม Titlebar ในหน้า Login ให้สามารถกดปิด/ย่อแอปได้, และเปลี่ยนปุ่ม 'ย่อ' ให้เข้าสู่โหมด Widget (ลอยทับหน้าจอ)",
-  "pub_date": "2026-06-12T15:25:00Z",
+  "version": "0.1.11",
+  "notes": "แก้ไขบั๊กร้ายแรง: เพิ่ม Permission (Capabilities) ของ Tauri v2 ให้รองรับการกดปิดแอปผ่านกากบาท และขยายเต็มหน้าจอได้สมบูรณ์แบบ",
+  "pub_date": "2026-06-12T15:40:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUa05PeTNmR3ZoMUl0dnJSRXlPMDhJcVhOQlc1ZG56bzFIcm1RNEVDSWt4Qy90ejJMQkpPM1VnWCtKQ3pJdlVMNUVUazNiWUhHNERhYVVIQ0RuMHZLRHlPQlprME9XdmdBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMjUzMDE4CWZpbGU6QWxlcnQgVGVsZXNhbGVfMC4xLjEwX3g2NC1zZXR1cC5leGUKaEFzYXQrL1JNODRCWVA4M2ZDczNLN2NjVDRZYnozdUtKU1NKTzN5Y2tyc2dKNFFqVEl4QlJrZ1FsK2hjQUZJNFRvY0c3ZXBmT1hoVXlRS3hMNlNqQ2c9PQo=",
-      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.10_x64-setup.exe"
+      "signature": "รอใส่_Signature_ของ_0.1.11_ตรงนี้",
+      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.11_x64-setup.exe"
     }
   }
 }
