@@ -89,26 +89,37 @@ export function ManagerView() {
     return () => unsubscribe();
   }, [teamId, notify, isMuted, volume, soundType, enableTTS]);
 
+  const latestAlerts = useRef(alerts);
+  const latestAudioSettings = useRef({ isMuted, volume, soundType, enableTTS });
+
+  useEffect(() => {
+    latestAlerts.current = alerts;
+    latestAudioSettings.current = { isMuted, volume, soundType, enableTTS };
+  }, [alerts, isMuted, volume, soundType, enableTTS]);
+
   // Escalation Loop: Remind every 30 seconds if there are unresolved alerts
   useEffect(() => {
     const escalationInterval = setInterval(() => {
-      if (alerts.length > 0 && !isMuted) {
-        const oldestAlert = alerts[alerts.length - 1]; // sorted newest first, so last is oldest
+      const currentAlerts = latestAlerts.current;
+      const { isMuted: muted, volume: vol, soundType: sound, enableTTS: tts } = latestAudioSettings.current;
+      
+      if (currentAlerts.length > 0 && !muted) {
+        const oldestAlert = currentAlerts[currentAlerts.length - 1]; // sorted newest first, so last is oldest
         const age = Date.now() - oldestAlert.timestamp;
         
         if (age > 30000) { // Older than 30s
-          SoundEngine.playSound(soundType, volume);
-          if (enableTTS) {
+          SoundEngine.playSound(sound, vol);
+          if (tts) {
              setTimeout(() => {
-                SoundEngine.speak(`มีคำขอความช่วยเหลือค้างอยู่ กรุณาตรวจสอบ`, volume);
+                SoundEngine.speak(`มีคำขอความช่วยเหลือค้างอยู่ กรุณาตรวจสอบ`, vol);
              }, 1500);
           }
         }
       }
-    }, 30000); // Check every 30 seconds
+    }, 30000); // Check every 30 seconds strictly
     
     return () => clearInterval(escalationInterval);
-  }, [alerts, isMuted, volume, soundType, enableTTS]);
+  }, []); // Empty dependency array ensures timer is never unexpectedly reset
 
   const handleResolve = async (id: string) => {
     if (!teamId) return;

@@ -1,11 +1,11 @@
 {
-  "version": "0.1.6",
-  "notes": "อัปเกรด Impeccable Layout: ปุ่ม SOS ใหญ่อลังการ, ปรับ UI ฝั่ง Manager ให้กระชับ, และแก้ปัญหาลากหน้าต่าง Widget ไม่ไป",
-  "pub_date": "2026-06-12T12:15:00Z",
+  "version": "0.1.7",
+  "notes": "แก้ไขจุดบกพร่องเรื่องการลากหน้าต่าง (Drag Region) ให้ทำงานได้สมบูรณ์ และยกเลิกการล็อกตำแหน่งหน้าต่าง Widget",
+  "pub_date": "2026-06-12T12:28:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUa05PeTNmR3ZoMVArUXhYdU51T25vc2VxWXMzQWxraW04cENSeVNRYlZXSit3ZFdXN05LcXVxWUlMYXc1NFk1anB3OG85WUttOVhzK2x2bHd1VWpmRkRwUUFrTEhGMEE4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMjQxNTQzCWZpbGU6QWxlcnQgVGVsZXNhbGVfMC4xLjZfeDY0LXNldHVwLmV4ZQpkWUc0RFZKUEM2NCtnQmJWQXZKZTBVczIyNmh3ZTRKMFM1ZVpNNzNUcEc5RVpNVlV1YWhLNmt2ZHJGejZUeEJuaVVidDRmRkFqcDhvN2U4Zko2TWlDZz09Cg==",
-      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.6_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUa05PeTNmR3ZoMUEycWNRQnVlbmV2NjBmaXVodDZPQmtId2ZuQjhVNWRvaE02RXRSOEV6cTFob3pyWjQ5UkZZbVJXZEszQ3ArQjR3K2tzdmJLMGVzd2ZwSGpUMk9kcnd3PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMjQzMDkyCWZpbGU6QWxlcnQgVGVsZXNhbGVfMC4xLjdfeDY0LXNldHVwLmV4ZQpXa1VVK25USGpxVW1NYzAwRktBTDZjWkFUUHNSblpUVEVUQnRBelNhekpZZVhTeDdFUkJEMTkrcmdjZXExVThNTWMxbmd5WjEwaThDQzVVRHFCOGlCZz09Cg==",
+      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.7_x64-setup.exe"
     }
   }
 }

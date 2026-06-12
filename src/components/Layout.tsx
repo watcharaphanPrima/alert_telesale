@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { LogOut, Minimize2, Maximize2, GripHorizontal } from 'lucide-react';
-import { getCurrentWindow, LogicalSize, LogicalPosition, currentMonitor } from '@tauri-apps/api/window';
+import { getCurrentWindow, LogicalSize } from '@tauri-apps/api/window';
 import { getVersion } from '@tauri-apps/api/app';
 
 export function Layout({ children, title }: { children: React.ReactNode, title: string }) {
