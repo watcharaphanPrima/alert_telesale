@@ -1,11 +1,11 @@
 {
-  "version": "0.1.13",
-  "notes": "แก้ไขสมบูรณ์แบบ 100%: บังคับปุ่ม Titlebar ให้แสดงผลลอยเหนือ Dark Mode แบบสวยงามชัดเจนที่สุด และปลดล็อกสิทธิ์ OS (ACL Permissions) ให้ใช้งานปุ่มปิดและขยายเต็มจอได้จริงๆ แบบไม่มีติดขัด",
-  "pub_date": "2026-06-12T16:25:00Z",
+  "version": "0.1.14",
+  "notes": "แก้ไขบั๊กขั้นเด็ดขาด: แก้ปัญหาหน้าจอย่อส่วนทำงานผิดพลาดเมื่อกดปุ่ม Minimize แล้วค้างอยู่ตรงกลาง, พร้อมให้สิทธิ์ทุกฟังก์ชันของ Window เพื่อความลื่นไหลที่สุด 100%",
+  "pub_date": "2026-06-12T16:35:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUa05PeTNmR3ZoMU8wOE1KNVI0bmF5NTVnTVgxVmQ3Wllsdk5VTWpOQzE1Snc1UEdYUEU1bXRwcmpBblcySm5QT3RRRVBtbFB2TGtrT0hwSitnZkVxMFpVa08zeWNCa3dzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMjU2NTgzCWZpbGU6QWxlcnQgVGVsZXNhbGVfMC4xLjEzX3g2NC1zZXR1cC5leGUKY01sS200WWcxRHdJYVVBYzRPS0JXeTFiV3hNaEJTWm8zNnRzVkpuMkJlZHpFKzFMckhFMVhsVzZQeDFqTFZBd3JuTHRpYjhPSUwwOEdPUUtNZDNjQVE9PQo=",
-      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.13_x64-setup.exe"
+      "signature": "รอใส่_Signature_ของ_0.1.14_ตรงนี้",
+      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.14_x64-setup.exe"
     }
   }
 }

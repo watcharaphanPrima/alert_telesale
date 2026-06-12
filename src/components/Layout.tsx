@@ -25,22 +25,24 @@ export function Layout({ children, title }: { children: React.ReactNode, title: 
         // Restore to full size
         setIsMiniMode(false);
         document.body.classList.remove('mini-mode');
-        await appWindow.setAlwaysOnTop(false);
-        await appWindow.setSize(new LogicalSize(800, 600));
-        await appWindow.center();
+        try { await appWindow.setAlwaysOnTop(false); } catch(e){}
+        try { await appWindow.setSize(new LogicalSize(800, 600)); } catch(e){}
+        try { await appWindow.center(); } catch(e){}
       } else {
         // Enter Widget Mode
         setIsMiniMode(true);
         document.body.classList.add('mini-mode');
         
         // Must unmaximize first, otherwise setSize has no effect on Windows
-        const maximized = await appWindow.isMaximized();
-        if (maximized) {
-          await appWindow.unmaximize();
-        }
+        try {
+          const maximized = await appWindow.isMaximized();
+          if (maximized) {
+            await appWindow.unmaximize();
+          }
+        } catch(e) {}
         
-        await appWindow.setAlwaysOnTop(true);
-        await appWindow.setSize(new LogicalSize(320, 480));
+        try { await appWindow.setAlwaysOnTop(true); } catch(e){}
+        try { await appWindow.setSize(new LogicalSize(320, 480)); } catch(e){}
       }
     } catch (e) {
       console.error("Failed to toggle mini mode", e);
