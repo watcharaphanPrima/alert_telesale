@@ -58,7 +58,7 @@ export function RoleSelection() {
         
         <div style={{ textAlign: 'center' }}>
           <h2 style={{ fontSize: 'clamp(2rem, 5vw, 2.5rem)', margin: '0 0 0.5rem 0', textWrap: 'balance', letterSpacing: '-0.02em', fontWeight: 700 }}>
-            ระบบขอความช่วยเหลือ Telesales
+            Alert Telesale
           </h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', margin: 0, fontWeight: 400 }}>
             เชื่อมต่อกับเครือข่ายทีมของคุณแบบเรียลไทม์
