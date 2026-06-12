@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { ref, onValue, update, query, orderByChild, equalTo } from 'firebase/database';
 import { db } from '../lib/firebase';
-import { ShieldAlert, Users, Clock, CheckCircle, Volume2 } from 'lucide-react';
+import { ShieldAlert, Clock, CheckCircle, Volume2, Settings, VolumeX } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import './ManagerView.css';
 import { useNotification } from '../contexts/NotificationContext';
+import { useAudioSettings } from '../hooks/useAudioSettings';
+import { SoundEngine } from '../lib/SoundEngine';
 
 interface Alert {
   id: string;
@@ -13,42 +15,20 @@ interface Alert {
   timestamp: number;
 }
 
-const playAlertSound = () => {
-  try {
-    const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-    // Siren pattern
-    const playBeep = (freq: number, startTime: number) => {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.type = 'square';
-      osc.frequency.setValueAtTime(freq, startTime);
-      gain.gain.setValueAtTime(0.1, startTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.3);
-      osc.start(startTime);
-      osc.stop(startTime + 0.3);
-    };
-    
-    const now = audioCtx.currentTime;
-    playBeep(880, now);        // High beep
-    playBeep(659.25, now + 0.3); // Low beep
-    playBeep(880, now + 0.6);    // High beep
-    playBeep(659.25, now + 0.9); // Low beep
-  } catch (e) {
-    console.warn("Audio play failed (maybe autoplay blocked):", e);
-  }
-};
-
 export function ManagerView() {
   const { teamId } = useParams();
   const { notify } = useNotification();
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [activeCount, setActiveCount] = useState(0);
+  const [showSettings, setShowSettings] = useState(false);
+  
+  // Audio Settings
+  const { volume, setVolume, isMuted, setIsMuted, soundType, setSoundType, enableTTS, setEnableTTS } = useAudioSettings();
   
   const isInitialMount = useRef(true);
   const seenAlertIds = useRef<Set<string>>(new Set());
 
+  // Handle new incoming alerts
   useEffect(() => {
     if (!teamId) return;
     const alertsRef = query(ref(db, `teams/${teamId}/alerts`), orderByChild('status'), equalTo('active'));
@@ -68,8 +48,15 @@ export function ManagerView() {
         const newAlerts = parsedAlerts.filter(a => !seenAlertIds.current.has(a.id));
         
         if (!isInitialMount.current && newAlerts.length > 0) {
-          // Play sound
-          playAlertSound();
+          // Play sound and/or TTS
+          if (!isMuted) {
+            SoundEngine.playSound(soundType, volume);
+            if (enableTTS) {
+              setTimeout(() => {
+                SoundEngine.speak(`คุณ${newAlerts[0].agentName} ต้องการความช่วยเหลือ`, volume);
+              }, 1500); // Wait for sound to play first
+            }
+          }
           
           // OS Notification
           if (Notification.permission === 'granted') {
@@ -95,13 +82,33 @@ export function ManagerView() {
       isInitialMount.current = false;
     });
 
-    // Request notification permission on mount
     if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
       Notification.requestPermission();
     }
 
     return () => unsubscribe();
-  }, [teamId, notify]);
+  }, [teamId, notify, isMuted, volume, soundType, enableTTS]);
+
+  // Escalation Loop: Remind every 30 seconds if there are unresolved alerts
+  useEffect(() => {
+    const escalationInterval = setInterval(() => {
+      if (alerts.length > 0 && !isMuted) {
+        const oldestAlert = alerts[alerts.length - 1]; // sorted newest first, so last is oldest
+        const age = Date.now() - oldestAlert.timestamp;
+        
+        if (age > 30000) { // Older than 30s
+          SoundEngine.playSound(soundType, volume);
+          if (enableTTS) {
+             setTimeout(() => {
+                SoundEngine.speak(`มีคำขอความช่วยเหลือค้างอยู่ กรุณาตรวจสอบ`, volume);
+             }, 1500);
+          }
+        }
+      }
+    }, 30000); // Check every 30 seconds
+    
+    return () => clearInterval(escalationInterval);
+  }, [alerts, isMuted, volume, soundType, enableTTS]);
 
   const handleResolve = async (id: string) => {
     if (!teamId) return;
@@ -110,6 +117,16 @@ export function ManagerView() {
       await update(alertRef, { status: 'resolved' });
     } catch (error) {
       console.error("Failed to resolve alert", error);
+    }
+  };
+
+  const playTestSound = () => {
+    if (isMuted) return;
+    SoundEngine.playSound(soundType, volume);
+    if (enableTTS) {
+       setTimeout(() => {
+          SoundEngine.speak("ทดสอบระบบเสียงเรียบร้อย", volume);
+       }, 1500);
     }
   };
 
@@ -125,38 +142,105 @@ export function ManagerView() {
               <h3>รอความช่วยเหลือ (Active)</h3>
               <p style={{ color: activeCount > 0 ? 'var(--danger)' : 'var(--text-main)' }}>{activeCount}</p>
             </div>
-            <button 
-              onClick={playAlertSound}
-              title="ทดสอบเสียงเตือน"
-              style={{
-                background: 'var(--bg-base)',
-                border: '1px solid var(--glass-border)',
-                borderRadius: '8px',
-                padding: '8px',
-                cursor: 'pointer',
-                color: 'var(--text-muted)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseOver={(e) => e.currentTarget.style.color = 'var(--text-main)'}
-              onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
-            >
-              <Volume2 size={18} />
-            </button>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <button 
+                onClick={() => setIsMuted(!isMuted)}
+                title={isMuted ? "เปิดเสียง" : "ปิดเสียง"}
+                style={{
+                  background: isMuted ? 'rgba(239, 68, 68, 0.1)' : 'var(--bg-base)',
+                  border: `1px solid ${isMuted ? 'rgba(239, 68, 68, 0.3)' : 'var(--glass-border)'}`,
+                  borderRadius: '8px',
+                  padding: '8px',
+                  cursor: 'pointer',
+                  color: isMuted ? 'var(--danger)' : 'var(--text-muted)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+              </button>
+              <button 
+                onClick={() => setShowSettings(!showSettings)}
+                title="ตั้งค่าเสียงแจ้งเตือน"
+                style={{
+                  background: showSettings ? 'rgba(59, 130, 246, 0.1)' : 'var(--bg-base)',
+                  border: `1px solid ${showSettings ? 'rgba(59, 130, 246, 0.3)' : 'var(--glass-border)'}`,
+                  borderRadius: '8px',
+                  padding: '8px',
+                  cursor: 'pointer',
+                  color: showSettings ? 'var(--primary)' : 'var(--text-muted)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <Settings size={18} />
+              </button>
+            </div>
           </div>
         </div>
         
-        <div className="stat-card">
-          <div className="stat-icon">
-            <Users size={24} />
+        {/* Settings Panel Slide-out */}
+        {showSettings && (
+          <div className="stat-card" style={{ gridColumn: '1 / -1', flexDirection: 'column', alignItems: 'stretch', gap: '1.5rem', animation: 'slide-in-blur 0.3s ease forwards' }}>
+            <h3 style={{ fontSize: '1.1rem', margin: 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              ตั้งค่าระบบแจ้งเตือน
+              <button className="btn-primary" onClick={playTestSound} style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
+                ทดสอบเสียง
+              </button>
+            </h3>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
+              <div>
+                <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)' }}>ระดับความดัง ({Math.round(volume * 100)}%)</label>
+                <input 
+                  type="range" 
+                  min="0" max="1" step="0.05" 
+                  value={volume} 
+                  onChange={(e) => setVolume(parseFloat(e.target.value))}
+                  style={{ width: '100%', accentColor: 'var(--primary)' }}
+                />
+              </div>
+              
+              <div>
+                <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)' }}>เสียงเตือน</label>
+                <select 
+                  value={soundType} 
+                  onChange={(e) => setSoundType(e.target.value as any)}
+                  style={{ 
+                    width: '100%', 
+                    padding: '0.75rem', 
+                    background: 'var(--bg-base)', 
+                    color: 'var(--text-main)', 
+                    border: '1px solid var(--glass-border)',
+                    borderRadius: '8px',
+                    outline: 'none'
+                  }}
+                >
+                  <option value="bell">กระดิ่ง (Bell)</option>
+                  <option value="chime">เตือนด่วน (Chime)</option>
+                  <option value="siren">ไซเรนฉุกเฉิน (Siren)</option>
+                </select>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1.5rem' }}>
+                <input 
+                  type="checkbox" 
+                  id="tts-toggle"
+                  checked={enableTTS} 
+                  onChange={(e) => setEnableTTS(e.target.checked)}
+                  style={{ width: '1.2rem', height: '1.2rem', accentColor: 'var(--primary)' }}
+                />
+                <label htmlFor="tts-toggle" style={{ color: 'var(--text-main)', cursor: 'pointer' }}>
+                  ให้คอมพิวเตอร์พูดชื่อผู้เรียก (Text-to-Speech)
+                </label>
+              </div>
+            </div>
           </div>
-          <div className="stat-info">
-            <h3>สถานะทีม</h3>
-            <p>ออนไลน์</p>
-          </div>
-        </div>
+        )}
       </div>
 
       <div className="alerts-container glass-panel" style={{ padding: 'var(--space-md, 1.5rem)', marginTop: 'var(--space-md, 1.5rem)' }}>
