@@ -1,5 +1,6 @@
 import { GripHorizontal, Minus, Square, Maximize2, X } from 'lucide-react';
 import { getCurrentWindow } from '@tauri-apps/api/window';
+import { useNotification } from '../contexts/NotificationContext';
 
 interface CustomTitlebarProps {
   appVersion?: string;
@@ -16,30 +17,54 @@ export function CustomTitlebar({
 }: CustomTitlebarProps) {
 
   const appWindow = getCurrentWindow();
+  const { addNotification } = useNotification();
 
-  const handleMinimizeOrWidget = () => {
-    if (showWidgetToggle && onToggleMiniMode) {
-      if (isMiniMode) {
-        appWindow.minimize(); // In Widget Mode, Minus minimizes to taskbar
+  const handleMinimizeOrWidget = async () => {
+    try {
+      if (showWidgetToggle && onToggleMiniMode) {
+        if (isMiniMode) {
+          await appWindow.minimize(); // In Widget Mode, Minus minimizes to taskbar
+        } else {
+          onToggleMiniMode(); // In Normal Mode, Minus enters Widget Mode
+        }
       } else {
-        onToggleMiniMode(); // In Normal Mode, Minus enters Widget Mode
+        await appWindow.minimize(); // Standard minimize
       }
-    } else {
-      appWindow.minimize(); // Standard minimize
+    } catch (error) {
+      console.error(error);
+      addNotification('error', 'ข้อผิดพลาด', `ไม่สามารถย่อหน้าต่างได้: ${error}`);
     }
   };
 
-  const handleMaximizeOrRestore = () => {
-    if (showWidgetToggle && onToggleMiniMode && isMiniMode) {
-      onToggleMiniMode(); // In Widget Mode, Expand restores to Normal Mode
-    } else {
-      appWindow.toggleMaximize(); // Standard maximize
+  const handleMaximizeOrRestore = async () => {
+    try {
+      if (showWidgetToggle && onToggleMiniMode && isMiniMode) {
+        onToggleMiniMode(); // In Widget Mode, Expand restores to Normal Mode
+      } else {
+        await appWindow.toggleMaximize(); // Standard maximize
+      }
+    } catch (error) {
+      console.error(error);
+      addNotification('error', 'ข้อผิดพลาด', `ไม่สามารถขยายหน้าต่างได้ (Permission ขาดหาย): ${error}`);
     }
   };
 
-  const handleDoubleClick = () => {
-    if (!isMiniMode) {
-      appWindow.toggleMaximize();
+  const handleDoubleClick = async () => {
+    try {
+      if (!isMiniMode) {
+        await appWindow.toggleMaximize();
+      }
+    } catch (e) {
+      // ignore
+    }
+  };
+
+  const handleClose = async () => {
+    try {
+      await appWindow.close();
+    } catch (error) {
+      console.error(error);
+      addNotification('error', 'ข้อผิดพลาด', `ไม่สามารถปิดโปรแกรมได้: ${error}`);
     }
   };
 
@@ -52,7 +77,7 @@ export function CustomTitlebar({
         }}
         onDoubleClick={handleDoubleClick}
       >
-        {isMiniMode && <GripHorizontal size={14} style={{ marginRight: 8, opacity: 0.5 }} />}
+        {isMiniMode && <GripHorizontal size={14} style={{ marginRight: 8, opacity: 0.5 }} color="currentColor" />}
         Alert Telesale {appVersion && <span style={{ opacity: 0.5, marginLeft: 6, fontWeight: 'normal' }}>v{appVersion}</span>}
       </div>
       <div className="titlebar-controls">
@@ -61,7 +86,7 @@ export function CustomTitlebar({
           onClick={handleMinimizeOrWidget} 
           title={isMiniMode ? "ซ่อนลง Taskbar" : (showWidgetToggle ? "ย่อเป็น Widget ลอยบนจอ" : "ย่อหน้าต่างลง Taskbar")}
         >
-          <Minus size={16} />
+          <Minus size={16} color="currentColor" strokeWidth={2.5} />
         </button>
         
         <button 
@@ -69,15 +94,15 @@ export function CustomTitlebar({
           onClick={handleMaximizeOrRestore} 
           title={isMiniMode ? "ขยายกลับเป็นหน้าต่างปกติ" : "ขยายเต็มจอ"}
         >
-          {isMiniMode ? <Maximize2 size={14} /> : <Square size={12} />}
+          {isMiniMode ? <Maximize2 size={14} color="currentColor" strokeWidth={2.5} /> : <Square size={12} color="currentColor" strokeWidth={2.5} />}
         </button>
 
         <button 
           className="titlebar-button close" 
-          onClick={() => appWindow.close()} 
+          onClick={handleClose} 
           title="ปิดโปรแกรม"
         >
-          <X size={16} />
+          <X size={16} color="currentColor" strokeWidth={2.5} />
         </button>
       </div>
     </div>

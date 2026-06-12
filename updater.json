@@ -1,11 +1,11 @@
 {
-  "version": "0.1.11",
-  "notes": "แก้ไขบั๊กร้ายแรง: เพิ่ม Permission (Capabilities) ของ Tauri v2 ให้รองรับการกดปิดแอปผ่านกากบาท และขยายเต็มหน้าจอได้สมบูรณ์แบบ",
-  "pub_date": "2026-06-12T15:40:00Z",
+  "version": "0.1.12",
+  "notes": "แก้ปัญหาไอคอนกลืนไปกับพื้นหลัง: ทำให้ระบบดึงค่าสีของปุ่มตรงกับ Text หลัก, รองรับ Dark Mode ของ Webview2 100%, พร้อมโชว์แจ้งเตือนหากระบบถูก OS บล็อคการปิดหรือขยายหน้าต่าง",
+  "pub_date": "2026-06-12T16:05:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUa05PeTNmR3ZoMVB3b3YvTEZ0am5vRTFlR3lMNWlmdXpsMWRBbTdZUXQ3SGs4aHR3MzZjZS9NdTcydXJ6TXp1TlJhVjk1TmNwNG5GRkJaK3B0amVuMlh2dXFXbnFkdWdnPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMjU0NjIwCWZpbGU6QWxlcnQgVGVsZXNhbGVfMC4xLjExX3g2NC1zZXR1cC5leGUKTmFGamlWWlg2dU5GS1JRL3Y2bEVCOUk0N09XRVUxeGVvSzBHWmZtSUxGOGR5L3MrUW5kcDFhL3M5Z2VGSkxlTDBSSzFjbzgxbEtDTSt5VXVBdU80QXc9PQo=",
-      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.11_x64-setup.exe"
+      "signature": "รอใส่_Signature_ของ_0.1.12_ตรงนี้",
+      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.12_x64-setup.exe"
     }
   }
 }

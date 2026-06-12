@@ -268,7 +268,7 @@ body.mini-mode .alert-item .btn-resolve {
   height: 100%;
   background: transparent;
   border: none;
-  color: var(--text-main);
+  color: var(--text-muted);
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
   opacity: 0.7;
@@ -280,6 +280,7 @@ body.mini-mode .alert-item .btn-resolve {
 
 .titlebar-button:hover {
   background: rgba(120, 140, 160, 0.3);
+  color: var(--text-main);
   opacity: 1;
 }
 
