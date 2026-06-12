@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { LogOut, Minimize2, Maximize2 } from 'lucide-react';
-import { getCurrentWindow, LogicalSize } from '@tauri-apps/api/window';
+import { getCurrentWindow, LogicalSize, LogicalPosition, currentMonitor } from '@tauri-apps/api/window';
+import { getVersion } from '@tauri-apps/api/app';
 
 export function Layout({ children, title }: { children: React.ReactNode, title: string }) {
   const navigate = useNavigate();
   const { teamId } = useParams();
   const [isMiniMode, setIsMiniMode] = useState(false);
+  const [appVersion, setAppVersion] = useState('');
+
+  useEffect(() => {
+    getVersion().then(setAppVersion).catch(console.error);
+  }, []);
   
   // Format team ID back to readable for display (e.g. team-alpha -> Team Alpha)
   const displayTeam = teamId ? teamId.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : '';
@@ -36,6 +42,20 @@ export function Layout({ children, title }: { children: React.ReactNode, title: 
         await appWindow.setDecorations(false);
         await appWindow.setAlwaysOnTop(true);
         await appWindow.setSize(new LogicalSize(320, 480));
+
+        // Move to bottom right
+        const monitor = await currentMonitor();
+        if (monitor) {
+          const logicalWidth = monitor.size.width / monitor.scaleFactor;
+          const logicalHeight = monitor.size.height / monitor.scaleFactor;
+          const logicalX = monitor.position.x / monitor.scaleFactor;
+          const logicalY = monitor.position.y / monitor.scaleFactor;
+          
+          const targetX = logicalX + logicalWidth - 320 - 20;
+          const targetY = logicalY + logicalHeight - 480 - 60; // 60px padding for taskbar
+          
+          await appWindow.setPosition(new LogicalPosition(targetX, targetY));
+        }
       }
     } catch (e) {
       console.error("Failed to toggle mini mode", e);
@@ -56,7 +76,10 @@ export function Layout({ children, title }: { children: React.ReactNode, title: 
           marginBottom: '2rem'
         }}>
           <div data-tauri-drag-region>
-            <h1 style={{ fontSize: '1.25rem', margin: 0 }}>{title}</h1>
+            <h1 style={{ fontSize: '1.25rem', margin: 0, display: 'flex', alignItems: 'center' }}>
+              {title}
+              {appVersion && <span style={{ fontSize: '0.7rem', color: 'var(--text-muted, #94a3b8)', marginLeft: '10px', fontWeight: 'normal', backgroundColor: 'rgba(255,255,255,0.05)', padding: '2px 6px', borderRadius: '4px' }}>v{appVersion}</span>}
+            </h1>
             <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem', color: 'var(--primary)', opacity: 0.8 }}>
               ทีม: {displayTeam}
             </p>
