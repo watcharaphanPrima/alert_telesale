@@ -1,11 +1,11 @@
 {
-  "version": "0.1.12",
-  "notes": "แก้ปัญหาไอคอนกลืนไปกับพื้นหลัง: ทำให้ระบบดึงค่าสีของปุ่มตรงกับ Text หลัก, รองรับ Dark Mode ของ Webview2 100%, พร้อมโชว์แจ้งเตือนหากระบบถูก OS บล็อคการปิดหรือขยายหน้าต่าง",
-  "pub_date": "2026-06-12T16:05:00Z",
+  "version": "0.1.13",
+  "notes": "แก้ไขสมบูรณ์แบบ 100%: บังคับปุ่ม Titlebar ให้แสดงผลลอยเหนือ Dark Mode แบบสวยงามชัดเจนที่สุด และปลดล็อกสิทธิ์ OS (ACL Permissions) ให้ใช้งานปุ่มปิดและขยายเต็มจอได้จริงๆ แบบไม่มีติดขัด",
+  "pub_date": "2026-06-12T16:25:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUa05PeTNmR3ZoMUJQemtxeGJPdGRCUG5XS1M5MUg5ZU8rdkxJcWt3Z3RDN3I0ZHNaOHY3KzQySVE3RStkWFUrbm9HS1RPNmcycjM2TEwrOTFydEJNOWRhYU1uMjJtQUFJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMjU1NTkzCWZpbGU6QWxlcnQgVGVsZXNhbGVfMC4xLjEyX3g2NC1zZXR1cC5leGUKMXM1K0s2WE95QTV5T0xoTXdicS9qOHVpUEo5aTdrQWFYb0FHOEZ0ZEFKNXlCd0pyMm1LR25QMmMxYVFKZTFFUDVQRTI3VVJraUJDWm5JLzJ0b3AwQXc9PQo=",
-      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.12_x64-setup.exe"
+      "signature": "รอใส่_Signature_ของ_0.1.13_ตรงนี้",
+      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.13_x64-setup.exe"
     }
   }
 }
