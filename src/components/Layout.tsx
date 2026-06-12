@@ -65,20 +65,35 @@ export function Layout({ children, title }: { children: React.ReactNode, title: 
           Alert Telesale {appVersion && <span style={{ opacity: 0.5, marginLeft: 6, fontWeight: 'normal' }}>v{appVersion}</span>}
         </div>
         <div className="titlebar-controls">
-          <button className="titlebar-button" onClick={toggleMiniMode} title={isMiniMode ? "ขยายหน้าต่าง" : "ย่อเป็น Widget"}>
-            {isMiniMode ? <Maximize2 size={14} /> : <Minimize2 size={14} />}
+          <button 
+            className="titlebar-button" 
+            onClick={() => {
+              if (isMiniMode) {
+                import('@tauri-apps/api/window').then(({ getCurrentWindow }) => getCurrentWindow().minimize());
+              } else {
+                toggleMiniMode();
+              }
+            }} 
+            title={isMiniMode ? "ซ่อนลง Taskbar" : "ย่อเป็น Widget ลอยบนจอ"}
+          >
+            <Minus size={16} />
           </button>
-          {!isMiniMode && (
-            <>
-              <button className="titlebar-button" onClick={() => getCurrentWindow().minimize()} title="ย่อหน้าต่างลง Taskbar">
-                <Minus size={16} />
-              </button>
-              <button className="titlebar-button" onClick={() => getCurrentWindow().toggleMaximize()} title="ขยายเต็มจอ">
-                <Square size={12} />
-              </button>
-            </>
-          )}
-          <button className="titlebar-button close" onClick={() => getCurrentWindow().close()} title="ปิดโปรแกรม">
+          
+          <button 
+            className="titlebar-button" 
+            onClick={() => {
+              if (isMiniMode) {
+                toggleMiniMode(); // ขยายกลับจาก Widget
+              } else {
+                import('@tauri-apps/api/window').then(({ getCurrentWindow }) => getCurrentWindow().toggleMaximize());
+              }
+            }} 
+            title={isMiniMode ? "ขยายกลับเป็นหน้าต่างปกติ" : "ขยายเต็มจอ"}
+          >
+            {isMiniMode ? <Maximize2 size={14} /> : <Square size={12} />}
+          </button>
+
+          <button className="titlebar-button close" onClick={() => import('@tauri-apps/api/window').then(({ getCurrentWindow }) => getCurrentWindow().close())} title="ปิดโปรแกรม">
             <X size={16} />
           </button>
         </div>
