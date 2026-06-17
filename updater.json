@@ -1,11 +1,11 @@
 {
-  "version": "0.1.16",
-  "notes": "เพิ่มไอคอนแอปพลิเคชัน: แสดงไอคอนแอป (Tauri Logo) ที่มุมซ้ายบนของแถบหน้าต่าง เพื่อให้ดูเป็นธรรมชาติเหมือนหน้าต่างแอปปกติมากยิ่งขึ้น",
-  "pub_date": "2026-06-17T09:35:00Z",
+  "version": "0.1.17",
+  "notes": "แก้ไขปุ่มหาย: ล็อคตำแหน่งปุ่ม Action (ย่อ/ขยาย/ปิด) ให้ติดขอบขวาบนแบบ Absolute 100% ป้องกันปัญหาโดนดันตกจอ พร้อมปรับสีปุ่มให้สว่างขึ้นเพื่อให้เห็นชัดเจน",
+  "pub_date": "2026-06-17T09:40:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "รอใส่_Signature_ของ_0.1.16_ตรงนี้",
-      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.16_x64-setup.exe"
+      "signature": "รอใส่_Signature_ของ_0.1.17_ตรงนี้",
+      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.17_x64-setup.exe"
     }
   }
 }

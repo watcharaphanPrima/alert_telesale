@@ -256,21 +256,28 @@ body.mini-mode .alert-item .btn-resolve {
 }
 
 .titlebar-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
   display: flex;
   height: 100%;
+  flex-shrink: 0;
+  z-index: 10000;
 }
 
 .titlebar-button {
-  display: inline-flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 46px;
   height: 100%;
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.2s ease;
+  border-radius: 0;
+  flex-shrink: 0;
   opacity: 0.85;
 }
 
