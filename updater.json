@@ -1,11 +1,11 @@
 {
-  "version": "0.1.18",
-  "notes": "แก้ไขปุ่มหาย (ขั้นสูงสุด): บังคับสไตล์ปุ่ม Inline แบบ Absolute ทะลุทุกกฎ CSS",
-  "pub_date": "2026-06-17T10:25:00Z",
+  "version": "0.1.19",
+  "notes": "แก้ไขปุ่มหาย (สมบูรณ์แบบ): ใช้โค้ด SVG วาดรูปลงไปตรงๆ และฝัง Inline Style ให้ปุ่มคงรูปเสมอ",
+  "pub_date": "2026-06-17T10:35:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "รอใส่_Signature_ของ_0.1.18_ตรงนี้",
-      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.18_x64-setup.exe"
+      "signature": "รอใส่_Signature_ของ_0.1.19_ตรงนี้",
+      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.19_x64-setup.exe"
     }
   }
 }
