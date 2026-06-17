@@ -1,11 +1,11 @@
 {
-  "version": "0.1.15",
-  "notes": "อัปเดตครั้งสุดท้าย!: แก้บั๊กที่ทำให้หน้าจอมนและกรอบหน้าต่างลอยค้างอยู่เมื่อรีเฟรชหน้า และจับคู่สิทธิ์การย่อขยายหน้าต่างให้ตรงกับชื่อโปรไฟล์ (Label) แบบเป๊ะๆ 100%",
-  "pub_date": "2026-06-12T16:55:00Z",
+  "version": "0.1.16",
+  "notes": "เพิ่มไอคอนแอปพลิเคชัน: แสดงไอคอนแอป (Tauri Logo) ที่มุมซ้ายบนของแถบหน้าต่าง เพื่อให้ดูเป็นธรรมชาติเหมือนหน้าต่างแอปปกติมากยิ่งขึ้น",
+  "pub_date": "2026-06-17T09:35:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "รอใส่_Signature_ของ_0.1.15_ตรงนี้",
-      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.15_x64-setup.exe"
+      "signature": "รอใส่_Signature_ของ_0.1.16_ตรงนี้",
+      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.16_x64-setup.exe"
     }
   }
 }

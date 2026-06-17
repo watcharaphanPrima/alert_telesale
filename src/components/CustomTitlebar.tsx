@@ -78,6 +78,7 @@ export function CustomTitlebar({
         onDoubleClick={handleDoubleClick}
       >
         {isMiniMode && <GripHorizontal size={14} style={{ marginRight: 8, opacity: 0.5 }} color="currentColor" />}
+        <img src="/tauri.svg" alt="App Icon" style={{ width: 16, height: 16, marginRight: 8, pointerEvents: 'none' }} />
         Alert Telesale {appVersion && <span style={{ opacity: 0.5, marginLeft: 6, fontWeight: 'normal' }}>v{appVersion}</span>}
       </div>
       <div className="titlebar-controls">
