@@ -96,40 +96,27 @@ export function CustomTitlebar({
           className="titlebar-button" 
           onClick={handleMinimizeOrWidget} 
           title={isMiniMode ? "ซ่อนลง Taskbar" : (showWidgetToggle ? "ย่อเป็น Widget ลอยบนจอ" : "ย่อหน้าต่างลง Taskbar")}
-          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.9)', cursor: 'pointer' }}
+          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', color: '#ffffff', cursor: 'pointer', fontSize: '14px', fontFamily: 'sans-serif' }}
         >
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 5H10" stroke="currentColor" strokeWidth="1.2"/>
-          </svg>
+          <span>&mdash;</span>
         </button>
         
         <button 
           className="titlebar-button" 
           onClick={handleMaximizeOrRestore} 
           title={isMiniMode ? "ขยายกลับเป็นหน้าต่างปกติ" : "ขยายเต็มจอ"}
-          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.9)', cursor: 'pointer' }}
+          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', color: '#ffffff', cursor: 'pointer', fontSize: '14px', fontFamily: 'sans-serif' }}
         >
-          {isMiniMode ? (
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M2.5 2.5H9.5V9.5H2.5V2.5Z" stroke="currentColor" strokeWidth="1.2"/>
-               <path d="M0.5 7.5V0.5H7.5" stroke="currentColor" strokeWidth="1.2"/>
-            </svg>
-          ) : (
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0.5 0.5H9.5V9.5H0.5V0.5Z" stroke="currentColor" strokeWidth="1.2"/>
-            </svg>
-          )}
+          <span>&#9744;</span>
         </button>
 
         <button 
           className="titlebar-button close" 
           onClick={handleClose} 
           title="ปิดโปรแกรม"
-          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.9)', cursor: 'pointer' }}
+          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', color: '#ffffff', cursor: 'pointer', fontSize: '14px', fontFamily: 'sans-serif' }}
         >
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0.5 0.5L9.5 9.5M9.5 0.5L0.5 9.5" stroke="currentColor" strokeWidth="1.2"/>
-          </svg>
+          <span>&#10005;</span>
         </button>
       </div>
     </div>

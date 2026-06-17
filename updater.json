@@ -1,11 +1,11 @@
 {
-  "version": "0.1.19",
-  "notes": "แก้ไขปุ่มหาย (สมบูรณ์แบบ): ใช้โค้ด SVG วาดรูปลงไปตรงๆ และฝัง Inline Style ให้ปุ่มคงรูปเสมอ",
-  "pub_date": "2026-06-17T10:35:00Z",
+  "version": "0.1.20",
+  "notes": "แก้ไขปุ่มหาย (เด็ดขาด): ใช้ตัวอักษร Text ธรรมดาแทนกราฟิก SVG เพื่อแก้ปัญหา SVG Render ไม่ขึ้น",
+  "pub_date": "2026-06-17T11:15:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "รอใส่_Signature_ของ_0.1.19_ตรงนี้",
-      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.19_x64-setup.exe"
+      "signature": "รอใส่_Signature_ของ_0.1.20_ตรงนี้",
+      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.20_x64-setup.exe"
     }
   }
 }
