@@ -81,11 +81,22 @@ export function CustomTitlebar({
         <img src="/tauri.svg" alt="App Icon" style={{ width: 16, height: 16, marginRight: 8, pointerEvents: 'none' }} />
         Alert Telesale {appVersion && <span style={{ opacity: 0.5, marginLeft: 6, fontWeight: 'normal' }}>v{appVersion}</span>}
       </div>
-      <div className="titlebar-controls">
+      <div 
+        className="titlebar-controls" 
+        style={{ 
+          position: 'absolute', 
+          top: 0, 
+          right: 0, 
+          display: 'flex', 
+          height: '32px', 
+          zIndex: 999999 
+        }}
+      >
         <button 
           className="titlebar-button" 
           onClick={handleMinimizeOrWidget} 
           title={isMiniMode ? "ซ่อนลง Taskbar" : (showWidgetToggle ? "ย่อเป็น Widget ลอยบนจอ" : "ย่อหน้าต่างลง Taskbar")}
+          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,0,0,0.2)', border: '1px solid red', color: 'white', cursor: 'pointer' }}
         >
           <Minus size={16} color="currentColor" strokeWidth={2.5} />
         </button>
@@ -94,6 +105,7 @@ export function CustomTitlebar({
           className="titlebar-button" 
           onClick={handleMaximizeOrRestore} 
           title={isMiniMode ? "ขยายกลับเป็นหน้าต่างปกติ" : "ขยายเต็มจอ"}
+          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,255,0,0.2)', border: '1px solid green', color: 'white', cursor: 'pointer' }}
         >
           {isMiniMode ? <Maximize2 size={14} color="currentColor" strokeWidth={2.5} /> : <Square size={12} color="currentColor" strokeWidth={2.5} />}
         </button>
@@ -102,6 +114,7 @@ export function CustomTitlebar({
           className="titlebar-button close" 
           onClick={handleClose} 
           title="ปิดโปรแกรม"
+          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,255,0.2)', border: '1px solid blue', color: 'white', cursor: 'pointer' }}
         >
           <X size={16} color="currentColor" strokeWidth={2.5} />
         </button>
