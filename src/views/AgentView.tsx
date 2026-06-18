@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ref, push, serverTimestamp } from 'firebase/database';
 import { db } from '../lib/firebase';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, WifiOff } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { useNotification } from '../contexts/NotificationContext';
 import { useLocalStorage } from '../hooks/useLocalStorage';
@@ -12,6 +12,20 @@ export function AgentView() {
   const { notify } = useNotification();
   const [agentName, setAgentName] = useLocalStorage<string>('agentName', '');
   const [isSending, setIsSending] = useState(false);
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+    
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   const handleSOS = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -33,7 +47,12 @@ export function AgentView() {
         status: 'active',
         timestamp: serverTimestamp(),
       });
-      notify('SOS Sent', 'ส่งคำขอความช่วยเหลือสำเร็จแล้ว!', 'success');
+      
+      if (isOffline) {
+        notify('ออฟไลน์ (Offline)', 'คำขอถูกเก็บไว้แล้ว และจะส่งอัตโนมัติเมื่อต่ออินเทอร์เน็ตได้', 'info');
+      } else {
+        notify('SOS Sent', 'ส่งคำขอความช่วยเหลือสำเร็จแล้ว!', 'success');
+      }
     } catch (error) {
       console.error("Failed to send SOS:", error);
       notify('Error', 'ส่งคำขอไม่สำเร็จ กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต', 'danger');
@@ -44,6 +63,25 @@ export function AgentView() {
 
   return (
     <form className="agent-view animate-fade-in" onSubmit={handleSOS}>
+      
+      {isOffline && (
+        <div style={{ 
+          background: 'rgba(239, 68, 68, 0.1)', 
+          color: 'var(--danger)', 
+          padding: '0.75rem 1rem', 
+          borderRadius: '8px', 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '0.5rem',
+          fontSize: '0.9rem',
+          fontWeight: 600,
+          border: '1px solid rgba(239, 68, 68, 0.2)'
+        }}>
+          <WifiOff size={18} />
+          <span>ขาดการเชื่อมต่ออินเทอร์เน็ต (Offline) - คำขอจะส่งเมื่อต่อเน็ตได้</span>
+        </div>
+      )}
+
       <div className={`glass-panel ${agentName.trim() ? 'hide-in-mini' : ''}`} style={{ 
         padding: 'var(--space-lg, 2rem)', 
         width: '100%', 
@@ -83,7 +121,7 @@ export function AgentView() {
         disabled={isSending || !agentName.trim()}
       >
         <AlertCircle size={48} />
-        <span>{isSending ? 'กำลังส่ง...' : 'ขอความช่วยเหลือ (SOS)'}</span>
+        <span>{isSending ? 'กำลังประมวลผล...' : 'ขอความช่วยเหลือ (SOS)'}</span>
       </button>
 
     </form>

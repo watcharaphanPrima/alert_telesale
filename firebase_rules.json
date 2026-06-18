@@ -1,0 +1,13 @@
+{
+  "rules": {
+    ".read": "now < 1733000000000",
+    ".write": "now < 1733000000000",
+    "teams": {
+      "$teamId": {
+        "alerts": {
+          ".indexOn": ["status"]
+        }
+      }
+    }
+  }
+}

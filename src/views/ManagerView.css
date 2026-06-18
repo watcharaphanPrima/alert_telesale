@@ -137,3 +137,33 @@
   color: var(--text-muted);
   gap: 1rem;
 }
+
+/* Icon Buttons */
+.icon-button {
+  background: var(--bg-base);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.icon-button:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.icon-button.danger-muted {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: var(--danger);
+}
+
+.icon-button.primary-active {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: var(--primary);
+}
