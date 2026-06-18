@@ -297,22 +297,29 @@ body.mini-mode .alert-item .btn-resolve {
   opacity: 1;
 }
 
-/* Force light colors for titlebar in mini-mode since the widget background is always dark */
+/* In mini-mode, titlebar is transparent and sits on top of app background, so use theme variables */
 body.mini-mode .custom-titlebar {
   background: transparent;
   border-bottom: none;
 }
 
 body.mini-mode .titlebar-drag-region {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-muted);
 }
 
 body.mini-mode .titlebar-button {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--text-main);
 }
 
 body.mini-mode .titlebar-button:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--glass-border);
+  color: var(--text-main);
+}
+
+/* Ensure close button in mini-mode still looks correct */
+body.mini-mode .titlebar-button.close:hover {
+  background: #e81123;
+  color: white !important;
 }
 
 /* Ensure app content doesn't get hidden under fixed titlebar */
