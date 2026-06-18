@@ -167,3 +167,16 @@
   border-color: rgba(59, 130, 246, 0.3);
   color: var(--primary);
 }
+
+.manager-content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .manager-content-grid {
+    grid-template-columns: 1fr 320px;
+  }
+}

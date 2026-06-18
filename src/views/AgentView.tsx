@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { ref, push, serverTimestamp } from 'firebase/database';
+import { ref, push, serverTimestamp, onValue } from 'firebase/database';
 import { db } from '../lib/firebase';
 import { AlertCircle, WifiOff } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { useNotification } from '../contexts/NotificationContext';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useAgentPresence } from '../hooks/useAgentPresence';
 import './AgentView.css';
 
 export function AgentView() {
@@ -25,6 +26,48 @@ export function AgentView() {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
+  }, []);
+
+  // ลงทะเบียน Agent Presence
+  const { agentId } = useAgentPresence(teamId, agentName);
+  
+  // ตรวจจับสัญญาณการเรียกจาก Manager
+  useEffect(() => {
+    if (!teamId || !agentId) return;
+    
+    const callSignalRef = ref(db, `teams/${teamId}/presence/${agentId}/callSignal`);
+    
+    let isFirstLoad = true;
+    const unsubscribe = onValue(callSignalRef, (snapshot) => {
+      const signalTime = snapshot.val();
+      
+      if (isFirstLoad) {
+        isFirstLoad = false;
+        return; // ข้ามการทำงานตอนโหลดครั้งแรก (เพื่อไม่ให้เด้งเตือนตอนเพิ่งเปิดแอป)
+      }
+      
+      if (signalTime && signalTime > 0) {
+        // เล่นเสียงกระดิ่ง และแสดง Notification
+        import('../lib/SoundEngine').then(({ SoundEngine }) => {
+          SoundEngine.playSound('chime', 1.0);
+        });
+        notify('มีสายเรียกเข้า!', 'หัวหน้าทีมกำลังเรียกหาคุณ กรุณาติดต่อกลับด่วน', 'info');
+        
+        if (Notification.permission === 'granted') {
+          new Notification('📞 หัวหน้าทีมกำลังเรียก!', {
+            body: 'กรุณาติดต่อหัวหน้าทีมของคุณโดยด่วน',
+          });
+        }
+      }
+    });
+    
+    return () => unsubscribe();
+  }, [teamId, agentId, notify]);
+
+  useEffect(() => {
+    if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
+      Notification.requestPermission();
+    }
   }, []);
 
   const handleSOS = async (e?: React.FormEvent) => {

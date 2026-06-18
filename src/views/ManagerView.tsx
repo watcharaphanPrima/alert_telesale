@@ -9,8 +9,10 @@ import { useAudioSettings } from '../hooks/useAudioSettings';
 import { SoundEngine } from '../lib/SoundEngine';
 import { useActiveAlerts } from '../hooks/useActiveAlerts';
 import { useEscalationTimer } from '../hooks/useEscalationTimer';
+import { useOnlineAgents } from '../hooks/useOnlineAgents';
 import { SettingsPanel } from '../components/SettingsPanel';
 import { AlertList } from '../components/AlertList';
+import { OnlineAgentsList } from '../components/OnlineAgentsList';
 
 export function ManagerView() {
   const { teamId } = useParams();
@@ -18,6 +20,7 @@ export function ManagerView() {
   
   // Custom Hooks
   const { alerts, activeCount } = useActiveAlerts(teamId);
+  const { onlineAgents } = useOnlineAgents(teamId);
   const audioSettings = useAudioSettings();
   const { volume, isMuted, setIsMuted, soundType, enableTTS } = audioSettings;
   
@@ -115,9 +118,13 @@ export function ManagerView() {
         )}
       </div>
 
-      <div className="alerts-container glass-panel" style={{ padding: 'var(--space-md, 1.5rem)', marginTop: 'var(--space-md, 1.5rem)' }}>
-        <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem', padding: '0 0.5rem', fontWeight: 700 }}>คำขอความช่วยเหลือล่าสุด</h2>
-        <AlertList alerts={alerts} onResolve={handleResolve} />
+      <div className="manager-content-grid">
+        <div className="alerts-container glass-panel" style={{ padding: 'var(--space-md, 1.5rem)' }}>
+          <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem', padding: '0 0.5rem', fontWeight: 700 }}>คำขอความช่วยเหลือล่าสุด</h2>
+          <AlertList alerts={alerts} onResolve={handleResolve} />
+        </div>
+        
+        <OnlineAgentsList agents={onlineAgents} teamId={teamId} />
       </div>
     </div>
   );
