@@ -1,4 +1,4 @@
-import { GripHorizontal, Minus, Square, Maximize2, X } from 'lucide-react';
+import { GripHorizontal } from 'lucide-react';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { useNotification } from '../contexts/NotificationContext';
 
