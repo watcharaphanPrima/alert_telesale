@@ -96,7 +96,7 @@ export function CustomTitlebar({
           className="titlebar-button" 
           onClick={handleMinimizeOrWidget} 
           title={isMiniMode ? "ซ่อนลง Taskbar" : (showWidgetToggle ? "ย่อเป็น Widget ลอยบนจอ" : "ย่อหน้าต่างลง Taskbar")}
-          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', color: '#ffffff', cursor: 'pointer', fontSize: '14px', fontFamily: 'sans-serif' }}
+          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontFamily: 'sans-serif' }}
         >
           <span>&mdash;</span>
         </button>
@@ -105,7 +105,7 @@ export function CustomTitlebar({
           className="titlebar-button" 
           onClick={handleMaximizeOrRestore} 
           title={isMiniMode ? "ขยายกลับเป็นหน้าต่างปกติ" : "ขยายเต็มจอ"}
-          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', color: '#ffffff', cursor: 'pointer', fontSize: '14px', fontFamily: 'sans-serif' }}
+          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontFamily: 'sans-serif' }}
         >
           <span>&#9744;</span>
         </button>
@@ -114,7 +114,7 @@ export function CustomTitlebar({
           className="titlebar-button close" 
           onClick={handleClose} 
           title="ปิดโปรแกรม"
-          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', color: '#ffffff', cursor: 'pointer', fontSize: '14px', fontFamily: 'sans-serif' }}
+          style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontFamily: 'sans-serif' }}
         >
           <span>&#10005;</span>
         </button>

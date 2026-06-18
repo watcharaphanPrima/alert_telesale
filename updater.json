@@ -1,11 +1,11 @@
 {
-  "version": "0.1.20",
-  "notes": "แก้ไขปุ่มหาย (เด็ดขาด): ใช้ตัวอักษร Text ธรรมดาแทนกราฟิก SVG เพื่อแก้ปัญหา SVG Render ไม่ขึ้น",
-  "pub_date": "2026-06-17T11:15:00Z",
+  "version": "0.1.21",
+  "notes": "เพิ่ม Effect เมื่อชี้เมาส์: เอาสไตล์พื้นหลังแบบบังคับออก เพื่อให้ CSS ทำงานและแสดงสีพื้นหลังและเอฟเฟกต์สีแดงเมื่อชี้ที่ปุ่มปิด",
+  "pub_date": "2026-06-18T11:05:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "รอใส่_Signature_ของ_0.1.20_ตรงนี้",
-      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.20_x64-setup.exe"
+      "signature": "รอใส่_Signature_ของ_0.1.21_ตรงนี้",
+      "url": "https://github.com/watcharaphanPrima/alert_telesale/releases/latest/download/Alert.Telesale_0.1.21_x64-setup.exe"
     }
   }
 }
