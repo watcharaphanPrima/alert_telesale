@@ -20,6 +20,7 @@ export function RoleSelection() {
 
   useEffect(() => {
     // If a session exists, auto-login by redirecting immediately
+    // The patch notes will be handled by CustomTitlebar
     if (session && session.teamId && session.role) {
       navigate(`/${session.teamId}/${session.role}`, { replace: true });
     }

@@ -1,6 +1,8 @@
-import { GripHorizontal } from 'lucide-react';
+import { GripHorizontal, Gift } from 'lucide-react';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { useNotification } from '../contexts/NotificationContext';
+import { usePatchNotes } from '../hooks/usePatchNotes';
+import { PatchNotesModal } from './PatchNotesModal';
 
 interface CustomTitlebarProps {
   appVersion?: string;
@@ -18,6 +20,7 @@ export function CustomTitlebar({
 
   const appWindow = getCurrentWindow();
   const { notify } = useNotification();
+  const { showNotes, closeNotes, openNotesManually, changelog, appVersion: patchAppVersion } = usePatchNotes();
 
   const handleMinimizeOrWidget = async () => {
     try {
@@ -69,30 +72,46 @@ export function CustomTitlebar({
   };
 
   return (
-    <div className="custom-titlebar">
-      <div 
-        className="titlebar-drag-region" 
-        onPointerDown={(e) => {
-          if (e.button === 0) appWindow.startDragging();
-        }}
-        onDoubleClick={handleDoubleClick}
-      >
-        {isMiniMode && <GripHorizontal size={14} style={{ marginRight: 8, opacity: 0.5 }} color="currentColor" />}
-        <img src="/logo.png" alt="App Icon" style={{ width: 16, height: 16, marginRight: 8, pointerEvents: 'none', objectFit: 'contain' }} />
-        Alert Telesale {appVersion && <span style={{ opacity: 0.5, marginLeft: 6, fontWeight: 'normal' }}>v{appVersion}</span>}
-      </div>
-      <div 
-        className="titlebar-controls" 
-        style={{ 
-          position: 'absolute', 
-          top: 0, 
-          right: 0, 
-          display: 'flex', 
-          height: '32px', 
-          zIndex: 999999 
-        }}
-      >
-        <button 
+    <>
+      <PatchNotesModal 
+        isOpen={showNotes} 
+        onClose={closeNotes} 
+        changelog={changelog} 
+        currentVersion={patchAppVersion || appVersion || '1.0.0'} 
+      />
+      <div className="custom-titlebar">
+        <div 
+          className="titlebar-drag-region" 
+          onPointerDown={(e) => {
+            if (e.button === 0) appWindow.startDragging();
+          }}
+          onDoubleClick={handleDoubleClick}
+        >
+          {isMiniMode && <GripHorizontal size={14} style={{ marginRight: 8, opacity: 0.5 }} color="currentColor" />}
+          <img src="/logo.png" alt="App Icon" style={{ width: 16, height: 16, marginRight: 8, pointerEvents: 'none', objectFit: 'contain' }} />
+          Alert Telesale {appVersion && <span style={{ opacity: 0.5, marginLeft: 6, fontWeight: 'normal' }}>v{appVersion}</span>}
+        </div>
+        <div 
+          className="titlebar-controls" 
+          style={{ 
+            position: 'absolute', 
+            top: 0, 
+            right: 0, 
+            display: 'flex', 
+            height: '32px', 
+            zIndex: 999999 
+          }}
+        >
+          <button 
+            className="titlebar-button" 
+            onClick={openNotesManually} 
+            title="มีอะไรใหม่?"
+            style={{ width: '46px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
+            <Gift size={14} />
+          </button>
+          
+          <button 
           className="titlebar-button" 
           onClick={handleMinimizeOrWidget} 
           title={isMiniMode ? "ซ่อนลง Taskbar" : (showWidgetToggle ? "ย่อเป็น Widget ลอยบนจอ" : "ย่อหน้าต่างลง Taskbar")}
@@ -120,5 +139,6 @@ export function CustomTitlebar({
         </button>
       </div>
     </div>
+    </>
   );
 }
