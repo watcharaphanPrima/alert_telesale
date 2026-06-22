@@ -19,7 +19,7 @@ export function PatchNotesModal({ isOpen, onClose, changelog, currentVersion }: 
     <div className="patch-notes-overlay">
       <div className="patch-notes-modal animate-scale-up">
         <button className="patch-notes-close" onClick={onClose} aria-label="Close patch notes">
-          <X size={20} />
+          <span style={{ fontSize: '18px', fontWeight: 'bold', lineHeight: 1 }}>&#10005;</span>
         </button>
 
         <div className="patch-notes-header">
